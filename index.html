@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CS 4600 Final Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="css/site.css">
+    <link type="text/css" rel="stylesheet" href="css/bulma.css">
+    <script type="module" src="js/script.js"></script>
+</head>
+
+<body>
+    <section class="section">
+        <h1 class="title is-1 has-text-centered">CS 4600 Final Project</h1>
+        <h3 class="subtitle has-text-centered">The Utah Teapot</h3>
+    </section>
+    <div class="tabs">
+        <ul>
+            <li id="teapot_tab" class="is-active"><a>The Utah Teapot</a></li>
+            <li id="video_tab"><a>Screen Cast</a></li>
+            <li id="ref_tab"><a>Project References</a></li>
+        </ul>
+    </div>
+    <section class="section page" id="teapot">
+        <div class="container-fluid has-text-centered" id="canvas"></div>
+    </section>
+    <section style="display: none;" class="section page" id="video">
+        <div class="container-fluid has-text-centered">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/kMtN9KJHn5Y" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </section>
+    <section style="display: none;" class="section page" id="reference">
+        <div class="container-fluid has-text-centered">
+            <iframe width="80%" height="800px;"  src="final_project.pdf"></iframe>
+        </div>
+    </section>
+</body>
+
+</html>
