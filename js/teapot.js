@@ -20,21 +20,21 @@ renderer.gammaOutput = true;
 canvas.appendChild(renderer.domElement);
 
 let camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 100000);
-camera.position.set(-600, 550, 1300);
+camera.position.set(0, 500, 2000);
 
-let textureCube = new THREE.CubeTextureLoader().load(sceneImages);
-let materialColor = new THREE.Color().setRGB(1.0, 1.0, 1.0);
-let reflectiveMaterial = new THREE.MeshPhongMaterial({ color: materialColor, envMap: textureCube, side: THREE.DoubleSide });
+let background = new THREE.CubeTextureLoader().load(sceneImages);
+let teapotColor = new THREE.Color().setRGB(1.0, 1.0, 1.0);
+let reflectionTexture = new THREE.MeshPhongMaterial({ color: teapotColor, envMap: background, side: THREE.DoubleSide });
 let ambientLight = new THREE.AmbientLight(0x333333);
 let light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
 let teapotGeometry = new TeapotBufferGeometry(400, 15, true, true, true, false, true);
-let teapot = new THREE.Mesh(teapotGeometry, reflectiveMaterial);
+let teapot = new THREE.Mesh(teapotGeometry, reflectionTexture);
 
 let scene = new THREE.Scene();
 scene.add(ambientLight);
 scene.add(light);
 scene.add(teapot);
-scene.background = textureCube;
+scene.background = background;
 renderer.render(scene, camera);
 
 let cameraControls = new OrbitControls(camera, renderer.domElement);
