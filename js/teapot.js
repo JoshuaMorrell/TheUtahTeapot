@@ -46,10 +46,11 @@ window.addEventListener('resize', () => {
     renderer.setSize(canvasWidth, canvasHeight);
     camera.aspect = canvasWidth / canvasHeight;
     camera.updateProjectionMatrix();
-    render();
+    renderer.render(scene, camera)
 }, false);
 
 function render() {
     requestAnimationFrame( render );
+    // teapot.rotation.y += 0.005; // cool rotation
     renderer.render(scene, camera);
 }
