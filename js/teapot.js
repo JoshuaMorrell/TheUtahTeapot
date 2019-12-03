@@ -35,7 +35,7 @@ scene.add(ambientLight);
 scene.add(light);
 scene.add(teapot);
 scene.background = background;
-renderer.render(scene, camera);
+render();
 
 let cameraControls = new OrbitControls(camera, renderer.domElement);
 cameraControls.addEventListener('change', () => renderer.render(scene, camera));
@@ -46,5 +46,10 @@ window.addEventListener('resize', () => {
     renderer.setSize(canvasWidth, canvasHeight);
     camera.aspect = canvasWidth / canvasHeight;
     camera.updateProjectionMatrix();
-    renderer.render(scene, camera);
+    render();
 }, false);
+
+function render() {
+    requestAnimationFrame( render );
+    renderer.render(scene, camera);
+}
