@@ -70,22 +70,20 @@ let light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
 let teapotGeometry = new TeapotBufferGeometry(400, 15, true, true, true, false, true);
 let teapot = new THREE.Mesh(teapotGeometry, reflectionTexture);
 
+// create the label above the teapot
 const labelCanvas = makeLabel();
 const texture = new THREE.CanvasTexture(labelCanvas);
 texture.minFilter = THREE.LinearFilter;
 texture.wrapS = THREE.ClampToEdgeWrapping;
 texture.wrapT = THREE.ClampToEdgeWrapping;
-
 const labelMaterial = new THREE.SpriteMaterial({
     map: texture,
     transparent: true,
 });
-
 const label = new THREE.Object3D();
 const sprite = new THREE.Sprite(labelMaterial);
 sprite.scale.x = labelCanvas.width;
 sprite.scale.y = labelCanvas.height;
-
 label.add(sprite);
 label.position.x = 0;
 label.position.y = 600;
