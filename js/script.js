@@ -70,7 +70,7 @@ let light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
 let teapotGeometry = new TeapotBufferGeometry(400, 15, true, true, true, false, true);
 let teapot = new THREE.Mesh(teapotGeometry, reflectionTexture);
 
-const labelCanvas = makeLabelCanvas(1000, 1000, "The Utah Teapot");
+const labelCanvas = makeLabelCanvas(1200, 200, "The Utah Teapot");
 const texture = new THREE.CanvasTexture(labelCanvas);
 texture.minFilter = THREE.LinearFilter;
 texture.wrapS = THREE.ClampToEdgeWrapping;
@@ -83,12 +83,12 @@ const labelMaterial = new THREE.SpriteMaterial({
 
 const label = new THREE.Object3D();
 const sprite = new THREE.Sprite(labelMaterial);
-sprite.scale.x = canvas.width;
-sprite.scale.y = canvas.height;
+sprite.scale.x = labelCanvas.width;
+sprite.scale.y = labelCanvas.height;
 
 label.add(sprite);
 label.position.x = 0;
-label.position.y = 1000;
+label.position.y = 600;
 
 // create the scene on which the teapot is rendered
 let scene = new THREE.Scene();
@@ -142,7 +142,7 @@ function render() {
 }
 
 function makeLabelCanvas(baseWidth, size, name) {
-    const borderSize = 2;
+    const borderSize = 20;
     const ctx = document.createElement('canvas').getContext('2d');
     const font =  `${size}px bold sans-serif`;
     ctx.font = font;
@@ -160,7 +160,7 @@ function makeLabelCanvas(baseWidth, size, name) {
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
 
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
     ctx.fillRect(0, 0, width, height);
 
     // scale to fit but don't stretch
