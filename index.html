@@ -8,7 +8,6 @@
     <link type="text/css" rel="stylesheet" href="css/site.css">
     <link type="text/css" rel="stylesheet" href="css/bulma.css">
     <script type="module" src="js/script.js"></script>
-    <script type="module" src="js/teapot.js"></script>
 </head>
 
 <body>
@@ -24,14 +23,28 @@
         </ul>
     </div>
     <section class="section page" id="teapot">
-        <div class="columms">
+        <div class="columns">
             <div class="column">
                 <div class="container-fluid has-text-centered" id="canvas"></div>
             </div>
         </div>
-        <div class="columms">
-            <div class="column is-offset-one-fifth is-two-fifth">
+        <div class="columns">
+            <div class="column">
                 <a id="explore" class="button is-outlined">Explore</a>
+            </div>
+        </div>
+        <div style="display: none;" id="explanation" class="columns">
+            <div class="column">
+                <div class="container-fluid">
+                    <h3 class="subtitle has-text-centered">Wondering how to explore our project?</h3>
+                </div>
+                <div class="column is-offset-one-fifth">
+                    <ol class="is-lower-alpha">
+                        <li>Feel free to click and drag across the canvas to view every angle of the teapot.</li>
+                        <li>Pitch to zoom (or scroll mousewheel) for a closer look at the reflective surface.</li>
+                        <li>Use your arrow keys to translate the teapot across the Catmull Gallery scene.</li>
+                    </ol>
+                </div>
             </div>
         </div>
     </section>
@@ -44,7 +57,7 @@
     </section>
     <section style="display: none;" class="section page" id="reference">
         <div class="container-fluid has-text-centered">
-            <iframe width="80%" height="800px;"  src="Final Project.pdf"></iframe>
+            <iframe width="80%" height="800px;" src="Final Project.pdf"></iframe>
         </div>
     </section>
 </body>
