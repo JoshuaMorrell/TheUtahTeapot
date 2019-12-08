@@ -70,7 +70,7 @@ let light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
 let teapotGeometry = new TeapotBufferGeometry(400, 15, true, true, true, false, true);
 let teapot = new THREE.Mesh(teapotGeometry, reflectionTexture);
 
-const labelCanvas = makeLabelCanvas(1200, 200, "The Utah Teapot");
+const labelCanvas = makeLabel();
 const texture = new THREE.CanvasTexture(labelCanvas);
 texture.minFilter = THREE.LinearFilter;
 texture.wrapS = THREE.ClampToEdgeWrapping;
@@ -141,34 +141,27 @@ function render() {
     renderer.render( scene, camera );
 }
 
-function makeLabelCanvas(baseWidth, size, name) {
-    const borderSize = 20;
-    const ctx = document.createElement('canvas').getContext('2d');
-    const font =  `${size}px bold sans-serif`;
-    ctx.font = font;
-    // measure how long the name will be
-    const textWidth = ctx.measureText(name).width;
+function makeLabel() {
+    const width = 1240;
+    const height = 240;
 
-    const doubleBorderSize = borderSize * 2;
-    const width = baseWidth + doubleBorderSize;
-    const height = size + doubleBorderSize;
-    ctx.canvas.width = width;
-    ctx.canvas.height = height;
+    const labelCanvas = document.createElement('canvas').getContext('2d');
+    labelCanvas.font = '200px bold sans-serif';
+    const textWidth = labelCanvas.measureText('The Utah Teapot').width;
 
-    // need to set font again after resizing canvas
-    ctx.font = font;
-    ctx.textBaseline = 'middle';
-    ctx.textAlign = 'center';
+    labelCanvas.canvas.width = width;
+    labelCanvas.canvas.height = height;
 
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
-    ctx.fillRect(0, 0, width, height);
+    labelCanvas.font = '200px bold sans-serif';
+    labelCanvas.textBaseline = 'middle';
+    labelCanvas.textAlign = 'center';
+    labelCanvas.fillStyle = 'rgba(0, 0, 0, 0.25)';
 
-    // scale to fit but don't stretch
-    const scaleFactor = Math.min(1, baseWidth / textWidth);
-    ctx.translate(width / 2, height / 2);
-    ctx.scale(scaleFactor, 1);
-    ctx.fillStyle = 'white';
-    ctx.fillText(name, 0, 0);
+    labelCanvas.fillRect(0, 0, width, height);
+    labelCanvas.translate(width / 2, height / 2);
+    labelCanvas.scale(1200 / textWidth, 1);
+    labelCanvas.fillStyle = 'white';
+    labelCanvas.fillText('The Utah Teapot', 0, 0);
 
-    return ctx.canvas;
+    return labelCanvas.canvas;
   }
