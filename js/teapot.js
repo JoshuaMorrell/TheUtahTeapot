@@ -1,8 +1,6 @@
-import * as THREE from './three.module.js';
-import { OrbitControls } from './controls.js';
-import { TeapotBufferGeometry } from './teapotGeometry.js';
-import {OBJLoader2} from './OBJLoader2.js';
-
+import * as THREE from '/js/three.module.js';
+import { OrbitControls } from '/js/controls.js';
+import { TeapotBufferGeometry } from '/data/teapotGeometry.js';
 
 const canvas = document.getElementById('canvas');
 const scaleWindow = 1.25;
@@ -14,6 +12,7 @@ const sceneImages = [
 let canvasWidth = window.innerWidth / scaleWindow;
 let canvasHeight = window.innerHeight / scaleWindow;
 let rotation = 1;
+let isExploring = false;
 
 let renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -23,7 +22,7 @@ renderer.gammaOutput = true;
 canvas.appendChild(renderer.domElement);
 
 let camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 100000);
-camera.position.set(0, 500, 2000);
+camera.position.set(0, 500, 3000);
 
 let background = new THREE.CubeTextureLoader().load(sceneImages);
 let teapotColor = new THREE.Color().setRGB(1.0, 1.0, 1.0);
@@ -32,14 +31,6 @@ let ambientLight = new THREE.AmbientLight(0x333333);
 let light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
 let teapotGeometry = new TeapotBufferGeometry(400, 15, true, true, true, false, true);
 let teapot = new THREE.Mesh(teapotGeometry, reflectionTexture);
-
-// var teapot;
-// // load from obj file
-// const loader = new OBJLoader2();
-// loader.load('data/teapot.obj', (obj) => {
-//     teapot = new THREE.Mesh(obj, reflectionTexture);
-//     scene.add(teapot);
-// });
 
 let scene = new THREE.Scene();
 scene.add(ambientLight);
@@ -50,7 +41,7 @@ render();
 
 let cameraControls = new OrbitControls(camera, renderer.domElement);
 cameraControls.minDistance = 1000;
-cameraControls.maxDistance = 4000;
+cameraControls.maxDistance = 5000;
 cameraControls.addEventListener('change', () => renderer.render(scene, camera));
 
 window.addEventListener('resize', () => {
@@ -62,12 +53,24 @@ window.addEventListener('resize', () => {
     renderer.render(scene, camera)
 }, false);
 
+document.getElementById('explore').addEventListener('click', () => {
+    if(isExploring === false){
+        isExploring = true;
+        document.getElementById('explore').innerHTML = 'Rotate';
+    }
+    else{
+        isExploring = false;
+        document.getElementById('explore').innerHTML = 'Explore';
+    }
+}, false);
+
 function render() {
     requestAnimationFrame( render );
-    rotation += 0.001;
-    camera.position.x = Math.sin(rotation) * 2000;
-    camera.position.z = Math.cos(rotation) * 2000;
-    camera.lookAt( scene.position ); // the origin
-
-    renderer.render(scene, camera);
+    if(isExploring === false){
+        rotation += 0.001;
+        camera.position.x = Math.sin(rotation) * 3000;
+        camera.position.z = Math.cos(rotation) * 3000;
+        camera.lookAt( scene.position );
+    }
+    renderer.render( scene, camera );
 }
