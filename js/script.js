@@ -6,9 +6,9 @@
  **/
 
  // three.js imports
-import * as THREE from '/threejs/three.module.js';
-import { OrbitControls } from '/threejs/controls.js';
-import { TeapotBufferGeometry } from '/threejs/teapotGeometry.js';
+import * as THREE from 'threejs/three.module.js';
+import { OrbitControls } from 'threejs/controls.js';
+import { TeapotBufferGeometry } from 'threejs/teapotGeometry.js';
 
 // navigation event listeners for clicking on header tabs
 let tabs = Array.prototype.slice.call(document.getElementsByTagName('li'));
