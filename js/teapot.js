@@ -1,16 +1,19 @@
 import * as THREE from './three.module.js';
 import { OrbitControls } from './controls.js';
 import { TeapotBufferGeometry } from './teapotGeometry.js';
+import {OBJLoader2} from './OBJLoader2.js';
+
 
 const canvas = document.getElementById('canvas');
-const windowScalar = 1.25;
+const scaleWindow = 1.25;
 const sceneImages = [
     "./img/px.png", "./img/nx.png",
     "./img/py.png", "./img/ny.png",
     "./img/pz.png", "./img/nz.png"
 ];
-let canvasWidth = window.innerWidth / windowScalar;
-let canvasHeight = window.innerHeight / windowScalar;
+let canvasWidth = window.innerWidth / scaleWindow;
+let canvasHeight = window.innerHeight / scaleWindow;
+let rotation = 1;
 
 let renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -30,6 +33,14 @@ let light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
 let teapotGeometry = new TeapotBufferGeometry(400, 15, true, true, true, false, true);
 let teapot = new THREE.Mesh(teapotGeometry, reflectionTexture);
 
+// var teapot;
+// // load from obj file
+// const loader = new OBJLoader2();
+// loader.load('data/teapot.obj', (obj) => {
+//     teapot = new THREE.Mesh(obj, reflectionTexture);
+//     scene.add(teapot);
+// });
+
 let scene = new THREE.Scene();
 scene.add(ambientLight);
 scene.add(light);
@@ -38,11 +49,13 @@ scene.background = background;
 render();
 
 let cameraControls = new OrbitControls(camera, renderer.domElement);
+cameraControls.minDistance = 1000;
+cameraControls.maxDistance = 4000;
 cameraControls.addEventListener('change', () => renderer.render(scene, camera));
 
 window.addEventListener('resize', () => {
-    let canvasWidth = window.innerWidth / windowScalar;
-    let canvasHeight = window.innerHeight / windowScalar;
+    let canvasWidth = window.innerWidth / scaleWindow;
+    let canvasHeight = window.innerHeight / scaleWindow;
     renderer.setSize(canvasWidth, canvasHeight);
     camera.aspect = canvasWidth / canvasHeight;
     camera.updateProjectionMatrix();
@@ -51,6 +64,10 @@ window.addEventListener('resize', () => {
 
 function render() {
     requestAnimationFrame( render );
-    // teapot.rotation.y += 0.005; // cool rotation
+    rotation += 0.001;
+    camera.position.x = Math.sin(rotation) * 2000;
+    camera.position.z = Math.cos(rotation) * 2000;
+    camera.lookAt( scene.position ); // the origin
+
     renderer.render(scene, camera);
 }
